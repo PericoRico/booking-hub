@@ -1,0 +1,28 @@
+## Description
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start -- -b swc
+
+# watch mode
+$ npm run start:dev -- -b swc
+
+# production mode
+$ npm run start:prod
+```
+
+
+## Prisma
+
+npx prisma migrate dev --name init
+
