@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -10,6 +10,6 @@ async function bootstrap() {
     transform: true, // Transform DTOs into instances
   }));
   await app.listen(3000);
-  console.log('Server running on port 3000');
+  Logger.log('Server running on port 3000');
 }
 bootstrap();
