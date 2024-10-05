@@ -24,5 +24,9 @@ $ npm run start:prod
 
 ## Prisma
 
+Create a migration and apply it to the database:
+
+```bash
 npx prisma migrate dev --name init
+```
 
