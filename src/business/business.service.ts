@@ -78,8 +78,23 @@ export class BusinessService {
     return `This action returns all business`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} business`;
+  async findOne(businessId: number) {
+
+    const businessRecord = await this.prisma.business.findUnique({
+      where: { id: businessId },
+      include: {
+        owner: true, // Incluir la información del propietario
+        location: true, // Incluir la ubicación
+        openingHours: true, // Incluir las horas de apertura
+        services: {
+          include: {
+            service: true, // Incluir los detalles del servicio
+          },
+        },
+      },
+    });
+
+    return businessRecord;
   }
 
   update(id: number, updateBusinessDto: UpdateBusinessDto) {
