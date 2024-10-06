@@ -86,6 +86,29 @@ class BusinessDto {
     owner: OwnerDto;
 }
 
+export class ServicesDto {
+    @IsString()
+    @IsNotEmpty()
+    name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    type: string;
+
+    @IsString()
+    @IsNotEmpty()
+    description: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    price: number;
+
+    @IsNumber()
+    @IsNotEmpty()
+    duration: number;
+
+}
+
 export class CreateBusinessDto {
     @ValidateNested()
     @Type(() => BusinessDto)
@@ -98,4 +121,8 @@ export class CreateBusinessDto {
     @ValidateNested()
     @Type(() => OpeningHoursDto)
     openingHours: OpeningHoursDto;
+
+    @ValidateNested()
+    @Type(() => ServicesDto)
+    services: ServicesDto[];
 }
