@@ -9,7 +9,6 @@ export class BusinessController {
 
   @Post()
   create(@Body() createBusinessDto: CreateBusinessDto) {
-    console.log(createBusinessDto);
     return this.businessService.create(createBusinessDto);
   }
 

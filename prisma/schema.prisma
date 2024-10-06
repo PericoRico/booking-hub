@@ -29,7 +29,9 @@ model Business {
   updatedAt      DateTime          @updatedAt
   openingHoursId Int
   imagesId       Int?
+  locationId     Int
   services       BusinessService[]
+  location       Location          @relation(fields: [locationId], references: [id])
   owner          Owner             @relation(fields: [ownerId], references: [id])
   openingHours   OpeningHours      @relation(fields: [openingHoursId], references: [id])
   images         Images?           @relation()
@@ -62,16 +64,15 @@ model BusinessService {
 }
 
 model OpeningHours {
-  id         Int        @id @default(autoincrement())
-  monday     String
-  tuesday    String
-  wednesday  String
-  thursday   String
-  friday     String
-  saturday   String
-  sunday     String
-  businessId Int        @map("business_id")
-  Business   Business[]
+  id        Int        @id @default(autoincrement())
+  monday    String
+  tuesday   String
+  wednesday String
+  thursday  String
+  friday    String
+  saturday  String
+  sunday    String
+  Business  Business[]
 }
 
 model Images {
@@ -80,4 +81,16 @@ model Images {
   additionalImages String[]
   businessId       Int      @unique @map("business_id")
   Business         Business @relation(fields: [businessId], references: [id])
+}
+
+model Location {
+  id        Int        @id @default(autoincrement())
+  address   String
+  city      String
+  state     String
+  zipCode   String
+  country   String
+  latitude  Float
+  longitude Float
+  Business  Business[]
 }
