@@ -11,7 +11,11 @@ export class BusinessController {
 
   @Post()
   create(@Body() createBusinessDto: CreateBusinessDto) {
-    return this.businessService.create(createBusinessDto);
+    try {
+      return this.businessService.create(createBusinessDto);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @Get()

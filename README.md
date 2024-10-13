@@ -30,3 +30,11 @@ Create a migration and apply it to the database:
 npx prisma migrate dev --name init
 ```
 
+Migrate to new db
+
+```bash
+npx prisma migrate deploy
+```
+
+
+
