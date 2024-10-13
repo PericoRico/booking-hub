@@ -89,14 +89,15 @@ export class BusinessService {
     const businessRecord = await this.prisma.business.findUnique({
       where: { id: businessId },
       include: {
-        owner: true, // Incluir la información del propietario
-        location: true, // Incluir la ubicación
-        openingHours: true, // Incluir las horas de apertura
+        owner: true,
+        location: true,
+        openingHours: true,
         services: {
           include: {
-            service: true, // Incluir los detalles del servicio
+            service: true,
           },
         },
+        images: true
       },
     });
 

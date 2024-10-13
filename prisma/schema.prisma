@@ -40,7 +40,8 @@ model Business {
 model Owner {
   id       Int        @id @default(autoincrement())
   name     String
-  email    String
+  email    String     @unique
+  phone    String?    @db.VarChar(15)
   business Business[]
 }
 
@@ -57,8 +58,8 @@ model Service {
 model BusinessService {
   businessId Int
   serviceId  Int
-  business   Business @relation(fields: [businessId], references: [id])
-  service    Service  @relation(fields: [serviceId], references: [id])
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   @@id([businessId, serviceId])
 }
@@ -79,7 +80,6 @@ model Images {
   id               Int        @id @default(autoincrement())
   hero             String?
   additionalImages String[]
-  //businessId       Int        @unique @map("business_id")
   Business         Business[]
 }
 

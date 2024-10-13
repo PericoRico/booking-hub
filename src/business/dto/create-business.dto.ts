@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsPhoneNumber, IsNumber, IsOptional, ValidateNested, IsNotEmpty, IsArray } from 'class-validator';
+import { IsString, IsEmail, IsPhoneNumber, IsNumber, IsOptional, ValidateNested, IsNotEmpty, IsArray, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 
@@ -15,6 +15,7 @@ class OwnerDto {
 
     @ApiProperty({ example: '+34611223344' })
     @IsPhoneNumber(null)
+    @MaxLength(15)
     @IsOptional()
     phone?: string;
 }
