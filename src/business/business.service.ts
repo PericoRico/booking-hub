@@ -41,6 +41,7 @@ export class BusinessService {
             create: {
               name: business.owner.name,
               email: business.owner.mail,
+              phone: business.owner.phone,
             },
           },
           location: {
