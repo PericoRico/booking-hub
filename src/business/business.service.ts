@@ -9,7 +9,7 @@ export class BusinessService {
   constructor(private prisma: PrismaService) { }
 
   async create(createBusinessDto: CreateBusinessDto) {
-    const { business, location, openingHours, services } = createBusinessDto;
+    const { business, location, openingHours, services, images } = createBusinessDto;
 
     // Generar hash de la contraseña
     //const hashedPassword = await bcrypt.hash(business.password, 10);
@@ -66,6 +66,12 @@ export class BusinessService {
                 }
               }
             }))
+          },
+          images: {
+            create: {
+              hero: images.hero,
+              additionalImages: images.additionalImages
+            }
           }
         },
       });
