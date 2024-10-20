@@ -10,11 +10,12 @@ export class BusinessController {
   constructor(private readonly businessService: BusinessService) { }
 
   @Post()
-  create(@Body() createBusinessDto: CreateBusinessDto) {
+  async create(@Body() createBusinessDto: CreateBusinessDto) {
     try {
-      return this.businessService.create(createBusinessDto);
+      return await this.businessService.create(createBusinessDto);
     } catch (error) {
       console.log(error);
+      throw error
     }
   }
 
