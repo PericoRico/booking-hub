@@ -94,9 +94,9 @@ class BusinessDto {
     name: string;
 
     @ApiProperty()
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    type: string;
+    type: number;
 
     @ApiProperty()
     @IsString()

@@ -19,13 +19,15 @@ export class BusinessService {
       const businessRecord = await prisma.business.create({
         data: {
           businessName: business.name,
-          businessType: business.type,
+          businessType: {
+            connect: { id: business.type }
+          },
           address: location.address,
           city: location.city,
           state: location.state,
           zipCode: location.zipCode,
           country: location.country,
-          password: 'hashedPassword',
+          password: 'hashedPassword', //TODO encrypt password
           openingHours: {
             create: {
               monday: openingHours.monday,
@@ -90,6 +92,7 @@ export class BusinessService {
     const businessRecord = await this.prisma.business.findUnique({
       where: { id: businessId },
       include: {
+        businessType: true,
         owner: true,
         location: true,
         openingHours: true,
@@ -105,11 +108,17 @@ export class BusinessService {
     return businessRecord;
   }
 
-  update(id: number, updateBusinessDto: UpdateBusinessDto) {
-    return `This action updates a #${id} business`;
-  }
+  async findBusinessType(search: string) {
 
-  remove(id: number) {
-    return `This action removes a #${id} business`;
+    const businessTypes = this.prisma.businessType.findMany({
+      where: {
+        name: {
+          contains: search, // Búsqueda parcial
+          mode: 'insensitive', // Ignorar mayúsculas/minúsculas
+        },
+      },
+    });
+
+    return businessTypes;
   }
 }

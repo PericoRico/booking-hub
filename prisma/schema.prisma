@@ -16,7 +16,7 @@ datasource db {
 model Business {
   id             Int               @id @default(autoincrement())
   businessName   String
-  businessType   String
+  businessTypeId Int               @default(1)
   address        String
   city           String
   state          String
@@ -35,6 +35,14 @@ model Business {
   owner          Owner             @relation(fields: [ownerId], references: [id])
   openingHours   OpeningHours      @relation(fields: [openingHoursId], references: [id])
   images         Images?           @relation(fields: [imagesId], references: [id])
+  businessType   BusinessType      @relation(fields: [businessTypeId], references: [id])
+}
+
+model BusinessType {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String?
+  business    Business[]
 }
 
 model Owner {
