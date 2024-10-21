@@ -110,6 +110,12 @@ class BusinessDto {
 }
 
 export class ServicesDto {
+
+    @ApiProperty()
+    @IsOptional()
+    @IsNotEmpty()
+    id?: number;
+
     @ApiProperty()
     @IsString()
     @IsNotEmpty()

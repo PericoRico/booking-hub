@@ -58,17 +58,28 @@ export class BusinessService {
                 longitude: location.longitude,
               },
             },
-            services: {
+            businessServices: {
               create: services.map((service) => ({
-                service: {
-                  create: {
-                    type: service.type,
-                    name: service.name,
-                    description: service.description,
-                    price: service.price,
-                    duration: service.duration,
+                service: service.id
+                  ? {
+                    connectOrCreate: {
+                      where: { id: service.id },
+                      create: {
+                        type: service.type,
+                        name: service.name,
+                        description: service.description,
+                      },
+                    },
                   }
-                }
+                  : {
+                    create: {
+                      type: service.type,
+                      name: service.name,
+                      description: service.description,
+                    },
+                  },
+                price: service.price,
+                duration: service.duration,
               }))
             },
             images: {
@@ -101,7 +112,7 @@ export class BusinessService {
         owner: true,
         location: true,
         openingHours: true,
-        services: {
+        businessServices: {
           include: {
             service: true,
           },

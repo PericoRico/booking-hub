@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ServicesService } from './services.service';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('services')
@@ -9,14 +7,14 @@ import { ApiTags } from '@nestjs/swagger';
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) { }
 
+  @Get('by-business-type')
+  async getByBusinessType(@Query('businessTypeId') businessTypeId: number) {
+    return this.servicesService.getByBusinessType(businessTypeId);
+  }
+
   // @Post()
   // create(@Body() createServiceDto: CreateServiceDto) {
   //   return this.servicesService.create(createServiceDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.servicesService.findAll();
   // }
 
   // @Get(':id')
