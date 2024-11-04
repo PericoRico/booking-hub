@@ -28,4 +28,17 @@ export class ServicesService {
 
     return businessWithServices
   }
+
+  async getRecommendedServices(category: string) {
+
+    try {
+
+      // make a coection with google AI
+
+
+
+    } catch (error) {
+
+    }
+  }
 }

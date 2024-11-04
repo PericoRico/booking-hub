@@ -12,6 +12,11 @@ export class ServicesController {
     return this.servicesService.getByBusinessType(businessTypeId);
   }
 
+  @Get('recommended')
+  async getRecommendedServices(@Query('category') category: string) {
+    return this.servicesService.getRecommendedServices(category);
+  }
+
   // @Post()
   // create(@Body() createServiceDto: CreateServiceDto) {
   //   return this.servicesService.create(createServiceDto);
