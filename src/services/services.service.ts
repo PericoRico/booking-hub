@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { GeminiService } from 'src/gemini/gemini.service';
 import { PrismaService } from 'src/prisma_db/prisma.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
@@ -6,7 +7,10 @@ import { UpdateServiceDto } from './dto/update-service.dto';
 @Injectable()
 export class ServicesService {
 
-  constructor(private prisma: PrismaService) { }
+  constructor(
+    private prisma: PrismaService,
+    private geminiService: GeminiService
+  ) { }
 
   create(createServiceDto: CreateServiceDto) {
     return 'This action adds a new service';
@@ -31,14 +35,17 @@ export class ServicesService {
 
   async getRecommendedServices(category: string) {
 
-    try {
+    const aiServices = await this.geminiService.getAIServices(category)
+    const aiServicesWithIds = aiServices.map(service => ({ id: null, name: service }));
 
-      // make a coection with google AI
+    //   // Combinar ambos arrays
+    // const combinedServices = aiServicesWithIds.map(aiService => {
+    //   // Buscar si el servicio de la IA ya existe en la base de datos
+    //   const existingService = dbServices.find(dbService => dbService.name === aiService.name);
+    //   // Si existe, se usa el `id` del servicio en la base de datos; de lo contrario, se queda con `id: null`
+    //   return existingService ? existingService : aiService;
+    // });
 
-
-
-    } catch (error) {
-
-    }
+    return aiServicesWithIds
   }
 }
