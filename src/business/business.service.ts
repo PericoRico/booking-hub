@@ -61,24 +61,16 @@ export class BusinessService {
             },
             businessServices: {
               create: services.map((service) => ({
-                service: service.id
-                  ? {
-                    connectOrCreate: {
-                      where: { id: service.id },
-                      create: {
-                        type: service.type,
-                        name: service.name,
-                        description: service.description,
-                      },
-                    },
-                  }
-                  : {
+                service: {
+                  connectOrCreate: {
+                    where: { id: service.id || 0 },
                     create: {
                       type: service.type,
                       name: service.name,
                       description: service.description,
                     },
                   },
+                },
                 price: service.price,
                 duration: service.duration,
               }))
