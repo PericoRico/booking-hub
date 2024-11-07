@@ -23,6 +23,11 @@ export class BusinessController {
   async findBusinessType(@Query('search') search: string) {
     return this.businessService.findBusinessType(search);
   }
+
+  @Get('category')
+  async findBusinessCategoryByType(@Query('businessTypeId') businessTypeId: number) {
+    return this.businessService.findBusinessCategoryByTypeId(businessTypeId);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.businessService.findOne(+id);

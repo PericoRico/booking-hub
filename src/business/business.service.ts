@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BusinessType } from '@prisma/client';
 import { PrismaService } from 'src/prisma_db/prisma.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { UpdateBusinessDto } from './dto/update-business.dto';
@@ -141,5 +142,16 @@ export class BusinessService {
     });
 
     return businessTypes;
+  }
+
+  async findBusinessCategoryByTypeId(typeId: number): Promise<BusinessType> {
+
+    const businessCategory = await this.prisma.businessType.findUnique({
+      where: {
+        id: typeId
+      },
+    });
+
+    return businessCategory;
   }
 }

@@ -1,20 +1,22 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ServicesService } from './services.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('services')
 @Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) { }
 
-  @Get('by-business-type')
+  @ApiOperation({ summary: 'Get services from the DB by business type' })
+  @Get('saved-by-business-type')
   async getByBusinessType(@Query('businessTypeId') businessTypeId: number) {
     return this.servicesService.getByBusinessType(businessTypeId);
   }
 
+  @ApiOperation({ summary: 'Get recommended services from AI and DB for a business type ID' })
   @Get('recommended')
-  async getRecommendedServices(@Query('category') category: string) {
-    return this.servicesService.getRecommendedServices(category);
+  async getRecommendedServices(@Query('businessTypeId') businessTypeId: number) {
+    return this.servicesService.getRecommendedServices(businessTypeId);
   }
 
   // @Post()
