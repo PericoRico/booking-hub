@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BusinessType } from '@prisma/client';
 import { PrismaService } from 'src/prisma_db/prisma.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
-import { UpdateBusinessDto } from './dto/update-business.dto';
 
 @Injectable()
 export class BusinessService {
@@ -19,6 +18,7 @@ export class BusinessService {
       return await this.prisma.$transaction(async (prisma) => {
 
         const businessRecord = await prisma.business.create({
+
           data: {
             businessName: business.name,
             businessType: {
