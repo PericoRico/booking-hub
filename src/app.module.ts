@@ -7,9 +7,10 @@ import { BusinessModule } from './business/business.module';
 import { ServicesModule } from './services/services.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ImagesModule } from './images/images.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), PrismaModule, BusinessModule, ServicesModule, GeminiModule, ImagesModule],
+  imports: [ConfigModule.forRoot(), PrismaModule, BusinessModule, ServicesModule, GeminiModule, ImagesModule, StorageModule],
   controllers: [AppController],
   providers: [AppService],
 })
