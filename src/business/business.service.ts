@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BusinessType } from '@prisma/client';
 import { PrismaService } from 'src/prisma_db/prisma.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class BusinessService {
@@ -11,11 +12,9 @@ export class BusinessService {
   async create(createBusinessDto: CreateBusinessDto) {
     const { business, location, openingHours, services, images } = createBusinessDto;
 
-    // Generar hash de la contraseña
-    //const hashedPassword = await bcrypt.hash(business.password, 10);
-
     try {
       return await this.prisma.$transaction(async (prisma) => {
+        const hashedPassword = await bcrypt.hash(business.password, 10);
 
         const businessRecord = await prisma.business.create({
 
@@ -29,7 +28,7 @@ export class BusinessService {
             state: location.state,
             zipCode: location.zipCode,
             country: location.country,
-            password: 'hashedPassword', //TODO encrypt password
+            password: hashedPassword,
             openingHours: {
               create: {
                 monday: openingHours.monday,
@@ -84,6 +83,7 @@ export class BusinessService {
           },
         });
 
+        delete businessRecord.password
         return businessRecord;
 
       });
