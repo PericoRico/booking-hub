@@ -23,7 +23,6 @@ model Business {
   zipCode          String
   country          String
   description      String?           @default("")
-  password         String
   ownerId          Int               @unique
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -49,6 +48,7 @@ model Owner {
   id       Int        @id @default(autoincrement())
   name     String
   email    String     @unique
+  password String     @default("")
   phone    String?    @db.VarChar(15)
   business Business[]
 }

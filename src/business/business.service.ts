@@ -28,7 +28,6 @@ export class BusinessService {
             state: location.state,
             zipCode: location.zipCode,
             country: location.country,
-            password: hashedPassword,
             openingHours: {
               create: {
                 monday: openingHours.monday,
@@ -44,6 +43,7 @@ export class BusinessService {
               create: {
                 name: business.owner.name,
                 email: business.owner.mail,
+                password: hashedPassword,
                 phone: business.owner.phone,
               },
             },
@@ -83,7 +83,6 @@ export class BusinessService {
           },
         });
 
-        delete businessRecord.password
         return businessRecord;
 
       });
