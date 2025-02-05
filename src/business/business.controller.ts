@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } f
 import { ApiTags } from '@nestjs/swagger';
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
-import { UpdateBusinessDto } from './dto/update-business.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Public } from 'src/auth/decorators/public.decorator';
+
 
 @UseGuards(JwtAuthGuard)
 @ApiTags('business')
@@ -11,6 +12,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class BusinessController {
   constructor(private readonly businessService: BusinessService) { }
 
+  @Public() 
   @Post()
   async create(@Body() createBusinessDto: CreateBusinessDto) {
     try {
@@ -21,15 +23,18 @@ export class BusinessController {
     }
   }
 
+  @Public()
   @Get('type')
   async findBusinessType(@Query('search') search: string) {
     return this.businessService.findBusinessType(search);
   }
 
+  @Public()
   @Get('category')
   async findBusinessCategoryByType(@Query('businessTypeId') businessTypeId: number) {
     return this.businessService.findBusinessCategoryByTypeId(businessTypeId);
   }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.businessService.findOne(+id);
