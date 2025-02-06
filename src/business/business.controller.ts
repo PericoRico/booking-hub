@@ -4,6 +4,7 @@ import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { OwnerGuard } from 'src/auth/guards/owner.guard';
 
 
 @UseGuards(JwtAuthGuard)
@@ -35,6 +36,7 @@ export class BusinessController {
     return this.businessService.findBusinessCategoryByTypeId(businessTypeId);
   }
 
+  @UseGuards(OwnerGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.businessService.findOne(+id);
