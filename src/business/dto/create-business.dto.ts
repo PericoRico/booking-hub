@@ -127,9 +127,10 @@ export class ServicesDto {
     type: string;
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
     @IsNotEmpty()
-    description: string;
+    description?: string;
 
     @ApiProperty()
     @IsNumber()

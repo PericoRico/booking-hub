@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -36,12 +36,10 @@ export class BusinessController {
     return this.businessService.findBusinessCategoryByTypeId(businessTypeId);
   }
 
-  @UseGuards(OwnerGuard)
+  //@UseGuards(OwnerGuard)
+  @ApiBearerAuth()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.businessService.findOne(+id);
   }
-
-
-
 }
